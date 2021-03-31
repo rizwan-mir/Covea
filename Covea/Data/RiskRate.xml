@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RiskRate>
+  <Age min="18" max="30">
+    <RiskRate Sum="25000">0.0172</RiskRate>
+    <RiskRate Sum="50000">0.0165</RiskRate>
+    <RiskRate Sum="100000">0.0154</RiskRate>
+    <RiskRate Sum="200000">0.0147</RiskRate>
+    <RiskRate Sum="300000">0.0144</RiskRate>
+    <RiskRate Sum="500000">0.0146</RiskRate>
+  </Age>
+  <Age min="31" max="50">
+    <RiskRate Sum="25000">0.1043</RiskRate>
+    <RiskRate Sum="50000">0.0999</RiskRate>
+    <RiskRate Sum="100000">0.0932</RiskRate>
+    <RiskRate Sum="200000">0.0887</RiskRate>
+    <RiskRate Sum="300000">0.0872</RiskRate>
+  </Age>
+  <Age min="51" max="65">
+    <RiskRate Sum="25000">0.2677</RiskRate>
+    <RiskRate Sum="50000">0.2565</RiskRate>
+    <RiskRate Sum="100000">0.2393</RiskRate>
+    <RiskRate Sum="200000">0.2285</RiskRate>
+  </Age>
+</RiskRate>
