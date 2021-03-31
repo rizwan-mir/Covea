@@ -38,6 +38,7 @@ namespace Covea.Business
             }
 
             dblRiskRate = GetRiskRate(details.Age, details.Sum);
+            //if risk rate is zeo this means there is no risk value available for this age and sum amount
             if (dblRiskRate == 0)
                 details.Notes = "Unable to provide premium";
             else 
@@ -47,6 +48,9 @@ namespace Covea.Business
                 details.NetPremium = Math.Round(details.RiskPremium + details.RenewalCommision, 2);
                 details.InitialCommission = Math.Round(details.NetPremium * 2.05, 2);
                 details.GrossPremium = Math.Round(details.NetPremium + details.InitialCommission, 2);
+
+                //check id gross premium is greater than 2 if not continue to add £5000
+                //to the sum amount until greater than 2
                 if (details.GrossPremium < 2)
                 {
                     do
@@ -78,10 +82,12 @@ namespace Covea.Business
             var riskRates = myxml.Elements("Age").Where(a => int.Parse(a.Attribute("min").Value) <= age && int.Parse(a.Attribute("max").Value) >= age).Descendants().ToList();
             var riskRate = from a in riskRates where a.Attribute("Sum").Value == sum.ToString() select a.Value.ToString();
             
+            
             if (riskRate.Count() != 0)
                 dblRisk = double.Parse(riskRate.First());
             else
             {
+                //if risk rate is between bands calculate min and max values
                 var minVals = GetMinRisk(riskRates, sum);
                 var maxVals = GetMaxRisk(riskRates, sum);
 
@@ -101,6 +107,7 @@ namespace Covea.Business
             return dblRisk;
         }
 
+        //Get lower band risk rate
         private static IEnumerable<XElement> GetMinRisk(List<XElement> riskRates, double sum)
         {
             var shorterEnumerable = riskRates.Where(x => double.Parse(x.Attribute("Sum").Value) <= sum);
@@ -116,6 +123,7 @@ namespace Covea.Business
             return null;
         }
 
+        //Get higher band risk rate
         private static IEnumerable<XElement> GetMaxRisk(List<XElement> riskRates, double sum)
         {
             var longerEnumerable = riskRates.Where(x => double.Parse(x.Attribute("Sum").Value) >= sum);

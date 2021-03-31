@@ -9,6 +9,7 @@ namespace CoveaTest
     [TestClass]
     public class UnitTest1
     {
+        //Test normal scenario
         [TestMethod]
         public void GetDetails_Test()
         {
@@ -37,6 +38,7 @@ namespace CoveaTest
             Assert.AreEqual(expected.GrossPremium, actual.GrossPremium);
         }
 
+        //Test for when age range is invalid
         [TestMethod]
         public void GetDetails_InvalidAge()
         {
@@ -54,6 +56,7 @@ namespace CoveaTest
             Assert.AreEqual(expected, actual.Notes);
         }
 
+        //Test for when the risk value does not exist for the age and sum amount range
         [TestMethod]
         public void GetDetails_InvalidSum()
         {
