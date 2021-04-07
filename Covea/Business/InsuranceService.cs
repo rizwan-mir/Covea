@@ -1,5 +1,6 @@
 ﻿using Covea.Models;
 using Covea.Interface;
+using Covea.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace Covea.Business
 {
     public class InsuranceService : IInsuranceService
     {
+        IDataHelper _dataHelper;
         public InsuranceService()
         {
-
+            _dataHelper = DataFactory.GetDataHelperObj();
         }
 
         //Check age range
@@ -73,11 +75,10 @@ namespace Covea.Business
         }
 
         //Calculate the risk rate
-        private static double GetRiskRate(int age, double sum)
+        private double GetRiskRate(int age, double sum)
         {
             double dblRisk = 0.00;
-            string strAppPath = AppDomain.CurrentDomain.BaseDirectory;
-            XElement myxml = XElement.Load(strAppPath + "\\Data\\RiskRate.xml");
+            XElement myxml = _dataHelper.GetRiskRules();
 
             var riskRates = myxml.Elements("Age").Where(a => int.Parse(a.Attribute("min").Value) <= age && int.Parse(a.Attribute("max").Value) >= age).Descendants().ToList();
             var riskRate = from a in riskRates where a.Attribute("Sum").Value == sum.ToString() select a.Value.ToString();

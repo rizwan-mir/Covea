@@ -160,9 +160,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsuranceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\DataFactory.cs" />
+    <Compile Include="Data\DataHelperXML.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IDataHelper.cs" />
     <Compile Include="Interface\IInsuranceService.cs" />
     <Compile Include="Models\Details.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
